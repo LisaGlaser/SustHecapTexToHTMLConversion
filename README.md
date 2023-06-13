@@ -5,3 +5,11 @@ Starting out from a .zip in the main directory (e.g. the .zip downloaded from ov
 
 In the process all .pdf figures are converted to .png and cropped, and a lot of formatting relevant tasks are done via sed replacements.
 
+The .zip file converted is provided in this repository, if you are converting a newer version just update that (and if the filename changed also update the conversion.sh script).
+
+```
+chmod 755 conversion.sh
+./conversion.sh
+```
+
+
