@@ -3,7 +3,7 @@
 ### required tools: unzip, pandoc, pandoc-crossref (can do without, but then no figure numbers), convert, sed
 ### a lot of things are done via sed in pre and post processing steps
 
-inarchive="White Paper Sustainability in HEP.zip"
+inarchive="White Paper Sustainability in HEP V2.0.zip"
 outfile="SustHecap.html"
 infile="SustainableHep.tex"
 
@@ -49,12 +49,12 @@ cd ../
 ### need to change some definitions in Whitepaper.sty to have the reco2
 ### recommendation titles show up after conversion
 sed -i 's|\\begin{mdframed}|\\begin{mdframed} \n #1 \n |g' Whitepaper.sty
-sed -i 's|\[\]| |g' Whitepaper.sty
+sed -i 's|\[\]\\relax%| |g' Whitepaper.sty
 pwd
 
 ### 
 ### --filter=pandoc-crossref does give figure numbers
-pandoc -s SustainableHEP.tex   --filter=pandoc-crossref --number-sections  --bibliography=SustainableHEP.bib --citeproc --csl resources/ieee.csl --metadata title="Environmental sustainability in basic research" --standalone --listings --toc --toc-depth 2 -o temp.html -t html5 --mathjax  
+pandoc -s SustainableHEP.tex  --filter=pandoc-crossref --number-sections  --bibliography=SustainableHEP.bib --citeproc --csl resources/ieee.csl --metadata title="Environmental sustainability in basic research" --standalone --listings --toc --toc-depth 2 -o temp.html -t html5 --mathjax  
 
 ### get the image paths correct
 for part in "Intro" "Computing" "Energy" "Common" "Food" "Technology" "Travel" "Waste"
@@ -111,13 +111,11 @@ sed -i 's|<div class="titlepage">|</div>\n<header id="title-block-header">\n<h1 
 
 sed -i 's|<li><a href="#endorsers" id="toc-endorsers">Endorsers</a></li>|<li><a href="#endorsers" id="toc-endorsers">Endorsers</a></li> \n <li><a href="#refs" id="toc-references">Bibliography</a></li>\n <li><a href="#footnotes" id="toc-endorsers">Footnotes</a></li>\n|' $outfile
 
-# ### make our best practices pretty
-
-
 ## cleanup after
-rm temp.html
-rm Sections/*.tex
-rm *.tex
-rm *.sty
-rm *.bst
-rm *.bib
+ rm temp.html
+ rm Sections/*.tex
+ rm Sections/*.txt
+ rm *.tex
+ rm *.sty
+ rm *.bst
+ rm *.bib
